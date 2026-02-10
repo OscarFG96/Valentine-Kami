@@ -1,159 +1,27 @@
-<!DOCTYPE html>
-<html lang="sv">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kami, vill du vara min Valentine? 💘</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Comic Sans MS', 'Poppins', sans-serif;
-    }
+    <title>Valentine Kami</title>
+    <script>
+        function handleNoClick() {
+            // Updating button text
+            const button = document.getElementById('no-button');
+            button.innerText = 'Clicked!';
+            // Displaying message
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+            message.innerText = 'You clicked No!';
+        }
 
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff4d6d, #ffb3c1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-align: center;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.35);
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      max-width: 400px;
-      width: 90%;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    #yesBtn {
-      background: #2ecc71;
-      color: #fff;
-      font-weight: bold;
-      transform: scale(1);
-    }
-
-    #noBtn {
-      background: #e74c3c;
-      color: #fff;
-    }
-
-    #yesBtn:hover {
-      background: #27ae60;
-    }
-
-    #noBtn:hover {
-      background: #c0392b;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .result {
-      margin-top: 20px;
-      font-size: 1.3rem;
-    }
-  </style>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noButton = document.getElementById('no-button');
+            noButton.addEventListener('touchstart', handleNoClick);
+            noButton.addEventListener('click', handleNoClick);
+        });
+    </script>
 </head>
 <body>
-  <div class="card">
-    <h1>Kami 💕</h1>
-    <p>Vill du vara min Valentine?<br>(You better click yes...)</p>
-
-    <div class="buttons" id="buttons">
-      <button id="yesBtn">JA 💖</button>
-      <button id="noBtn">Nej 😈</button>
-    </div>
-
-    <div class="result hidden" id="result"></div>
-  </div>
-
-  <script>
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const result = document.getElementById('result');
-  const buttons = document.getElementById('buttons');
-
-  let scale = 1;
-  let noClickCount = 0;
-
-  const noMessages = [
-    'Nej,visste att du skulle klicka nej 😈',
-    'Missade du JA eller???',
-    'För gud skull tiny sluta tänk på din fru nu.',
-    'Aj, denna gjorde ont.',
-    'Okej. Du vet att jag ser att du valde nej va?.',
-    'Det här är pinsamt för dig och mig nu.'
-  ];
-
-  function moveNoButton() {
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
-  }
-
-  noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    noClickCount++;
-    scale += 0.35;
-    yesBtn.style.transform = `scale(${scale})`;
-
-    noBtn.textContent =
-      noMessages[Math.min(noClickCount, noMessages.length - 1)];
-
-    moveNoButton();
-
-    if (noClickCount >= 5) {
-      noBtn.style.opacity = 0.2;
-    }
-  });
-
-  noBtn.addEventListener('click', () => {
-    noClickCount++;
-    scale += 0.35;
-    yesBtn.style.transform = `scale(${scale})`;
-    moveNoButton();
-  });
-
-  yesBtn.addEventListener('click', () => {
-    buttons.classList.add('hidden');
-    result.classList.remove('hidden');
-    result.innerHTML =
-      'Rätt val, duktig tiny💘<br><br>Du är nu officiellt min Valentine. Älskar dig 🖤';
-  });
-</script>
-
+    <h1>Welcome to Valentine Kami!</h1>
+    <button id='no-button'>No</button>
+    <div id='message' style='display:none;'></div>
 </body>
 </html>
