@@ -103,54 +103,62 @@
   </div>
 
   <script>
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const result = document.getElementById('result');
-  const buttons = document.getElementById('buttons');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const result = document.getElementById('result');
+const buttons = document.getElementById('buttons');
 
-  let scale = 1;
-  let noClickCount = 0;
+let scale = 1;
+let noClickCount = 0;
 
-  const noMessages = [
-    'Nej, visste att du skulle klicka nej 😈',
-    'Missade du JA eller???',
-    'För gud skull tiny sluta tänk på din fru nu.',
-    'Aj, denna gjorde ont.',
-    'Okej. Du vet att jag ser att du valde nej va?.',
-    'Det här är pinsamt för dig och mig nu.'
-  ];
+const noMessages = [
+  'Nej, visste att du skulle klicka nej 😈',
+  'Missade du JA eller???',
+  'För gud skull tiny sluta tänk på din fru nu.',
+  'Aj, denna gjorde ont.',
+  'Okej. Du vet att jag ser att du valde nej va?.',
+  'Det här är pinsamt för dig och mig nu.'
+];
 
-  function moveNoButton() {
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+// Funktion som flyttar knappen till slumpad plats inom skärmen
+function moveNoButton() {
+  const cardRect = buttons.getBoundingClientRect();
+  const maxX = window.innerWidth - cardRect.width;
+  const maxY = window.innerHeight - cardRect.height;
+
+  const x = Math.random() * maxX - cardRect.left;
+  const y = Math.random() * maxY - cardRect.top;
+
+  noBtn.style.transition = 'transform 0.2s ease-out';
+  noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random()*40-20}deg)`;
+}
+
+function handleNoClick() {
+  noClickCount++;
+  scale += 0.35;
+  yesBtn.style.transform = `scale(${scale})`;
+
+  // Visa rätt meddelande
+  noBtn.textContent =
+    noMessages[Math.min(noClickCount - 1, noMessages.length - 1)];
+
+  moveNoButton();
+
+  // Efter 5 klick blir den nästan osynlig
+  if (noClickCount >= 5) {
+    noBtn.style.opacity = 0.2;
   }
+}
 
-  function handleNoClick() {
-    noClickCount++;
-    scale += 0.35;
-    yesBtn.style.transform = `scale(${scale})`;
+// Bara click-event behövs
+noBtn.addEventListener('click', handleNoClick);
 
-    // FIX: visa rätt meddelande vid varje klick
-    noBtn.textContent =
-      noMessages[Math.min(noClickCount - 1, noMessages.length - 1)];
-
-    moveNoButton();
-
-    if (noClickCount >= 5) {
-      noBtn.style.opacity = 0.2;
-    }
-  }
-
-  // Endast click, touchstart tas bort
-  noBtn.addEventListener('click', handleNoClick);
-
-  yesBtn.addEventListener('click', () => {
-    buttons.classList.add('hidden');
-    result.classList.remove('hidden');
-    result.innerHTML =
-      'Rätt val, duktig tiny💘<br><br>Du är nu officiellt min Valentine. Älskar dig 🖤';
-  });
+yesBtn.addEventListener('click', () => {
+  buttons.classList.add('hidden');
+  result.classList.remove('hidden');
+  result.innerHTML =
+    'Rätt val, duktig tiny💘<br><br>Du är nu officiellt min Valentine. Älskar dig 🖤';
+});
 </script>
 
 </body>
