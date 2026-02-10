@@ -90,7 +90,7 @@
 <body>
   <div class="card">
     <h1>Kami 💕</h1>
-    <p>Vill du vara min Valentine?<br>(Jag frågar helt seriöst. Lite.)</p>
+    <p>Vill du vara min Valentine?<br>(You better click yes...)</p>
 
     <div class="buttons" id="buttons">
       <button id="yesBtn">JA 💖</button>
@@ -110,24 +110,32 @@
     let noClickCount = 0;
 
     const noMessages = [
-      'Är du säker? 😏',
-      'Tänk igen…',
-      'Det där kändes fel.',
-      'Jag låtsas att du missklickade.',
-      'Okej men JA blir större nu.',
-      'Det här slutar bara på ett sätt.'
+      'Är du helt säker? 😈 Visste du skulle klicka nej-.-',
+      'Nej är inte ett alternativ.',
+      'Den här knappen börjar ångra sig…',
+      'JA blir bara starkare.',
+      'Sluta kämpa emot ödet.',
+      'Okej. Nu flyr jag.'
     ];
+
+    noBtn.addEventListener('mouseover', () => {
+      if (noClickCount >= 3) {
+        const x = Math.random() * 200 - 100;
+        const y = Math.random() * 200 - 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    });
 
     noBtn.addEventListener('click', () => {
       noClickCount++;
-      scale += 0.25;
+      scale += 0.3;
       yesBtn.style.transform = `scale(${scale})`;
 
       const msg = noMessages[Math.min(noClickCount - 1, noMessages.length - 1)];
       noBtn.textContent = msg;
 
-      if (noClickCount > 5) {
-        noBtn.style.opacity = 0.3;
+      if (noClickCount >= 5) {
+        noBtn.style.opacity = 0.2;
       }
     });
 
