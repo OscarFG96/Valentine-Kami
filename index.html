@@ -67,6 +67,8 @@
     #noBtn {
       background: #e74c3c;
       color: #fff;
+      text-align: center;
+      white-space: normal;
     }
 
     #yesBtn:hover {
@@ -110,7 +112,7 @@
   let noClickCount = 0;
 
   const noMessages = [
-    'Nej,visste att du skulle klicka nej 😈',
+    'Nej, visste att du skulle klicka nej 😈',
     'Missade du JA eller???',
     'För gud skull tiny sluta tänk på din fru nu.',
     'Aj, denna gjorde ont.',
@@ -129,8 +131,9 @@
     scale += 0.35;
     yesBtn.style.transform = `scale(${scale})`;
 
+    // FIX: visa rätt meddelande vid varje klick
     noBtn.textContent =
-      noMessages[Math.min(noClickCount, noMessages.length - 1)];
+      noMessages[Math.min(noClickCount - 1, noMessages.length - 1)];
 
     moveNoButton();
 
@@ -139,14 +142,8 @@
     }
   }
 
-  noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    handleNoClick();
-  });
-
-  noBtn.addEventListener('click', () => {
-    handleNoClick();
-  });
+  // Endast click, touchstart tas bort
+  noBtn.addEventListener('click', handleNoClick);
 
   yesBtn.addEventListener('click', () => {
     buttons.classList.add('hidden');
